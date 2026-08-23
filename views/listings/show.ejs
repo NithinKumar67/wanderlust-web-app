@@ -1,0 +1,98 @@
+<% layout('/layouts/basic.ejs') -%>
+
+<div class="container mt-5 mb-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10">
+
+            <!-- Listing Card -->
+            <div class="listing-show-card">
+
+                <!-- Image -->
+                <img 
+                    src="<%= listing.image.url %>"
+                    class="listing-show-img"
+                    alt="<%= listing.title %>"
+                >
+
+                <!-- Details -->
+                <div class="listing-show-content">
+
+                    <div class="row">
+
+                        <div class="col-lg-8">
+
+                            <h1 class="listing-show-title">
+                                <%= listing.title %>
+                            </h1>
+
+                            <p class="listing-location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <%= listing.location %>, <%= listing.country %>
+                            </p>
+
+                            <hr>
+
+                            <h4>About this place</h4>
+
+                            <p class="listing-show-description">
+                                <%= listing.description %>
+                            </p>
+
+                        </div>
+
+                        <!-- Price Card -->
+                        <div class="col-lg-4">
+
+                            <div class="price-card">
+
+                                <h3>
+                                    ₹<%= listing.price.toLocaleString("en-IN") %>
+                                    <span>/ night</span>
+                                </h3>
+
+                                <p class="text-muted">
+                                    Price per night
+                                </p>
+
+                                <hr>
+
+                                <!-- Edit -->
+                                <a 
+                                    href="/listings/<%= listing._id %>/edit"
+                                    class="btn btn-dark w-100 mb-2"
+                                >
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Edit Listing
+                                </a>
+
+                                <!-- Delete -->
+                                <form 
+                                    action="/listings/<%= listing._id %>?_method=DELETE"
+                                    method="POST"
+                                >
+                                    <button 
+                                        type="submit"
+                                        class="btn btn-outline-danger w-100"
+                                    >
+                                        <i class="fa-solid fa-trash"></i>
+                                        Delete Listing
+                                    </button>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

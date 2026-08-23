@@ -1,0 +1,162 @@
+<% layout('/layouts/basic.ejs') -%>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <div class="mb-4">
+                <h1 class="fw-bold">Add New Listing</h1>
+                <p class="text-muted">
+                    Add a new place for travelers to discover.
+                </p>
+            </div>
+
+            <form action="/listings" method="POST" class="needs-validation " novalidate>
+
+                <!-- Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold">
+                        Title
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        name="title"
+                        placeholder="Enter listing title"
+                        required
+                    >
+                    <div class="valid-feedback">Looks good!</div>
+                </div>
+                
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-semibold">
+                        Description
+                    </label>
+
+                    <textarea
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        rows="5"
+                        placeholder="Describe your property..."
+                        required
+                    ></textarea>
+                    <div class="invalid-feedback">Please write short description</div>
+                </div>
+                
+
+                <!-- Image URL -->
+                <div class="mb-3">
+                    <label for="image[url]" class="form-label fw-semibold">
+                        Image URL
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="image[url]"
+                        name="image[url]"
+                        placeholder="https://example.com/image.jpg"
+                        
+                    >
+                </div>
+
+                <!-- Image Filename -->
+                <div class="mb-3">
+                    <label for="image[filename]" class="form-label fw-semibold">
+                        Image Filename
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="image[filename]"
+                        name="image[filename]"
+                        value="listingimage"
+                    >
+                </div>
+
+                <!-- Price -->
+                <div class="mb-3">
+                    <label for="price" class="form-label fw-semibold">
+                        Price per night
+                    </label>
+
+                    <div class="input-group">
+                        <span class="input-group-text">₹</span>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="price"
+                            name="price"
+                            placeholder="1500"
+                            min="0"
+                            required
+                        >
+                    </div>
+                    <div class="invalid-feedback">Please enter valid price</div>
+                </div>
+                
+                <!-- Location & Country -->
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label for="location" class="form-label fw-semibold">
+                            Location
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="location"
+                            name="location"
+                            placeholder="Mumbai"
+                            required
+                        >
+                        <div class="invalid-feedback">Please enter valid location</div>
+                    </div>
+                   
+
+                    <div class="col-md-6 mb-3">
+                        <label for="country" class="form-label fw-semibold">
+                            Country
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="country"
+                            name="country"
+                            placeholder="India"
+                            required
+                        >
+                        <div class="invalid-feedback">Please enter valid price</div>
+                    </div>
+                    
+                </div>
+
+                <!-- Submit -->
+                <div class="d-flex gap-3 mt-4">
+
+                    <button type="submit" class="btn btn-dark px-4">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Listing
+                    </button>
+
+                    <a href="/listings" class="btn btn-outline-secondary px-4">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+

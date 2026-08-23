@@ -1,0 +1,152 @@
+<% layout('/layouts/basic') -%>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <h1 class="fw-bold mb-2">Edit Listing</h1>
+            <p class="text-muted mb-4">
+                Update the details of your listing.
+            </p>
+
+            <form action="/listings/<%= listing._id %>?_method=PUT" method="POST">
+
+                <!-- Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold">
+                        Title
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        name="title"
+                        value="<%= listing.title %>"
+                        required
+                    >
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-semibold">
+                        Description
+                    </label>
+
+                    <textarea
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        rows="5"
+                        required
+                    ><%= listing.description %></textarea>
+                </div>
+
+                <!-- Image URL -->
+                <div class="mb-3">
+                    <label for="image[url]" class="form-label fw-semibold">
+                        Image URL
+                    </label>
+
+                    <input
+                        type="url"
+                        class="form-control"
+                        id="image[url]"
+                        name="image[url]"
+                        value="<%= listing.image.url %>"
+                        required
+                    >
+                </div>
+
+                <!-- Image Filename -->
+                <div class="mb-3">
+                    <label for="image[filename]" class="form-label fw-semibold">
+                        Image Filename
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="image[filename]"
+                        name="image[filename]"
+                        value="<%= listing.image.filename %>"
+                    >
+                </div>
+
+                <!-- Price -->
+                <div class="mb-3">
+                    <label for="price" class="form-label fw-semibold">
+                        Price per night
+                    </label>
+
+                    <div class="input-group">
+                        <span class="input-group-text">₹</span>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="price"
+                            name="price"
+                            value="<%= listing.price %>"
+                            min="0"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label for="location" class="form-label fw-semibold">
+                            Location
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="location"
+                            name="location"
+                            value="<%= listing.location %>"
+                            required
+                        >
+                    </div>
+
+                    <!-- Country -->
+                    <div class="col-md-6 mb-3">
+                        <label for="country" class="form-label fw-semibold">
+                            Country
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="country"
+                            name="country"
+                            value="<%= listing.country %>"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex gap-3 mt-4">
+
+                    <button type="submit" class="btn btn-dark px-4">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Update Listing
+                    </button>
+
+                    <a href="/listings/<%= listing._id %>"
+                       class="btn btn-outline-secondary px-4">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
