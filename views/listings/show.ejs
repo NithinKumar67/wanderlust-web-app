@@ -96,3 +96,44 @@
     </div>
 
 </div>
+<hr>
+
+<div class="container mt-5 mb-5 ">
+    <h4>Leave a Review</h4>
+    <form action="/listings/<%=listing.id%>/reviews" method="post" novalidate class="needs-validation">
+        <div class="mb-3 mt-3">
+            <label for="rating" class="form-label">Rating:</label>
+            <input type="range" name="review[rating]" id="rating" min="1" max="5" class="form-control">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="comment" class="form-label">Add Comment:</label>
+            <textarea name="review[comment]" id="comment" cols="30" 
+            rows="5" class="form-control" required ></textarea>
+            <div class="invalid-feedback">Please leave a comment</div>
+        </div>
+        <button class="btn btn-dark px-4">Submit</button>
+
+    </form>
+
+    <hr>
+    <br><br>
+    
+    <div class="row g-3">
+        <p><b>All Reviews</b></p>
+    <% for(review of listing.reviews) { %>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Username</h5>
+                    <p class="card-text"><%= review.comment %></p>
+                    <p class="card-text"><%= review.rating %> stars</p>
+                    <form class="mb-3" method="post" action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE">
+                    <button class="btn btn-sm btn-dark">Delete</button>
+                </form>
+                </div>
+                
+            </div>
+        </div>
+    <% } %>
+    </div>
+</div>

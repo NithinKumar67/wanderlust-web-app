@@ -8,7 +8,9 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
-const listingSchema= require('./schemaValidation');
+const {listingSchema, reviewSchema}= require('./schemaValidation');
+const Review = require('./models/review');
+
 
 app.set('views',path.join(__dirname,'/views'));
 app.set('view engine','ejs');
@@ -17,8 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.engine('ejs', ejsMate);
 
-//schemavalidation
-const validation= (req,res,next)=>{
+//Listing schemavalidation
+const listingValidation= (req,res,next)=>{
     const { error } = listingSchema.validate(req.body);
     if (error) {
         throw new ExpressError(400, error.details[0].message);
@@ -27,6 +29,17 @@ const validation= (req,res,next)=>{
         next();
     }
 }
+// review schemavalidation
+const reviewValidation = (req, res, next) => {
+
+    const { error } = reviewSchema.validate(req.body);
+    if (error) {
+        throw new ExpressError(400, error.details[0].message);
+    }
+    else{
+        next();
+    }
+};
 
 //connection to db
 async function main() {
@@ -61,7 +74,7 @@ app.get('/listings/new', (req, res) => {
 
 
 //add new to db
-app.post('/listings',validation, wrapAsync(async (req, res,next) => {
+app.post('/listings',listingValidation, wrapAsync(async (req, res,next) => {
     const newListing = new Listing(req.body);
     await newListing.save();
     res.redirect('/listings');
@@ -70,7 +83,7 @@ app.post('/listings',validation, wrapAsync(async (req, res,next) => {
 //show listing
 app.get('/listings/:id',wrapAsync(async (req,res)=>{
     let {id} = req.params;
-    let listing =  await Listing.findById(id);
+    let listing =  await Listing.findById(id).populate('reviews');
     res.render('listings/show.ejs',{listing});
 }));
 
@@ -84,7 +97,7 @@ app.get('/listings/:id/edit', wrapAsync(async (req, res) => {
 }));
 
 //update
-app.put('/listings/:id',validation, wrapAsync(async (req, res) => {
+app.put('/listings/:id',listingValidation, wrapAsync(async (req, res) => {
     let { id } = req.params;
 
     await Listing.findByIdAndUpdate(id, req.body);
@@ -102,6 +115,28 @@ app.delete('/listings/:id', wrapAsync(async (req, res) => {
 
     res.redirect('/listings');
 }));
+
+// post reviews
+
+app.post('/listings/:id/reviews',reviewValidation, wrapAsync(async (req,res)=>{
+    const listing = await Listing.findById(req.params.id);
+    const newReview = new Review(req.body.review);
+
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+    res.redirect(`/listings/${listing._id}`)
+}))
+
+// delete review
+
+app.delete('/listings/:id/reviews/:reviewId',wrapAsync(async (req,res)=>{
+    let {id,reviewId}= req.params;
+    await Listing.findByIdAndUpdate(id, {$pull:{reviews:reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+
+    res.redirect(`/listings/${id}`);
+}))
 
 app.all("/{*splat}",(req,res,next)=>{
     let error = new ExpressError(404,'page not found!');
