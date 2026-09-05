@@ -40,6 +40,8 @@
                                 <%= listing.description %>
                             </p>
 
+                            <i><h6>OwnedBy <%= listing.owner.username %></h6></i>
+
                         </div>
 
                         <!-- Price Card -->
@@ -57,7 +59,7 @@
                                 </p>
 
                                 <hr>
-
+                                <% if(curruser && curruser._id.equals(listing.owner._id)) {%>
                                 <!-- Edit -->
                                 <a 
                                     href="/listings/<%= listing._id %>/edit"
@@ -80,6 +82,7 @@
                                         Delete Listing
                                     </button>
                                 </form>
+                                <% } %>
 
                             </div>
 
@@ -99,6 +102,7 @@
 <hr>
 
 <div class="container mt-5 mb-5 ">
+    <% if(curruser) { %>
     <h4>Leave a Review</h4>
     <form action="/listings/<%=listing.id%>/reviews" method="post" novalidate class="needs-validation">
         <div class="mb-3 mt-3">
@@ -114,8 +118,10 @@
         <button class="btn btn-dark px-4">Submit</button>
 
     </form>
-
     <hr>
+    <% } %>
+
+    
     <br><br>
     
     <div class="row g-3">
@@ -124,7 +130,7 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Username</h5>
+                    <h5 class="card-title">@<%=review.author.username%></h5>
                     <p class="card-text"><%= review.comment %></p>
                     <p class="card-text"><%= review.rating %> stars</p>
                     <form class="mb-3" method="post" action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE">

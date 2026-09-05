@@ -9,7 +9,15 @@
         <a class="nav-link" aria-current="page" href="/listings">Home</a>
         <a class="nav-link" href="/listings">All Listings</a>
         <a class="nav-link" href="/listings/new">Add NewListing</a>
-        
+      </div>
+      <div class="navbar-nav ms-auto">
+        <% if(!curruser) { %>
+        <a class="nav-link" href="/signup">signup</a>
+        <a class="nav-link" href="/login">login</a>
+        <%}%>
+        <% if(curruser) { %>
+        <a class="nav-link" href="/logout">logout</a>
+        <%}%>
       </div>
     </div>
   </div>
