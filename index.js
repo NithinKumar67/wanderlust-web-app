@@ -84,19 +84,9 @@ app.use((req,res,next)=>{
 
 //home route
 app.get('/', (req, res) => {
-    res.send("working");
+    res.redirect('/listings');
 });
 
-//demouser
-app.get('/demo', async (req,res)=>{
-    const user1 = new User({
-        email:'nithin@gmailcom',
-        username:'nithin'
-    });
-
-    let user = await User.register(user1,'nithin123');
-    res.send(user);
-});
 
 //other routes
 app.use('/listings',listingRoutes);
