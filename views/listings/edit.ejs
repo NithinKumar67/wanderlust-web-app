@@ -9,7 +9,7 @@
                 Update the details of your listing.
             </p>
 
-            <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" novalidate class="needs-validation">
+            <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
 
                 <!-- Title -->
                 <div class="mb-3">
@@ -41,35 +41,31 @@
                         required
                     ><%= listing.description %></textarea>
                 </div>
-
-                <!-- Image URL -->
-                <div class="mb-3">
-                    <label for="image[url]" class="form-label fw-semibold">
-                        Image URL
+                <div>
+                    <label for="preview" class="form-label fw-semibold">
+                        preview image:
                     </label>
-
-                    <input
-                        type="url"
-                        class="form-control"
-                        id="image[url]"
-                        name="image[url]"
-                        value="<%= listing.image.url %>"
-                        required
+                    <br>
+                    <img
+                        id="preview"
+                        src="<%= listing.image.url.replace('/upload/', '/upload/f_auto,q_20,w_60/') %>"
+                        alt="Listing image"
+                        width="200"
+                        style="object-fit: cover;"
                     >
                 </div>
-
-                <!-- Image Filename -->
+                <!-- Image URL -->
                 <div class="mb-3">
-                    <label for="image[filename]" class="form-label fw-semibold">
-                        Image Filename
+                    <label for="image" class="form-label fw-semibold">
+                        Image
                     </label>
 
                     <input
-                        type="text"
+                        type="file"
                         class="form-control"
-                        id="image[filename]"
-                        name="image[filename]"
-                        value="<%= listing.image.filename %>"
+                        id="image"
+                        name="image"
+                        value="upload new image"
                     >
                 </div>
 

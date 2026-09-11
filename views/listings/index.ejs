@@ -10,9 +10,10 @@
                     <div class="listing-card">
 
                         <img 
-                            src="<%= listing.image.url %>" 
+                            src="<%= listing.image.url.replace('/upload/', '/upload/f_auto,q_auto,w_800/') %>" 
                             class="listing-img"
                             alt="<%= listing.title %>"
+                            loading="lazy"
                         >
 
                         <div class="listing-info">

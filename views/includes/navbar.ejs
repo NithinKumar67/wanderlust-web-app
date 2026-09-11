@@ -1,24 +1,127 @@
-<nav class="navbar navbar-expand-md bg-body-light sticky-top border-bottom ">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i> Wonderlust</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" aria-current="page" href="/listings">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add NewListing</a>
-      </div>
-      <div class="navbar-nav ms-auto">
-        <% if(!curruser) { %>
-        <a class="nav-link" href="/signup">signup</a>
-        <a class="nav-link" href="/login">login</a>
-        <%}%>
-        <% if(curruser) { %>
-        <a class="nav-link" href="/logout">logout</a>
-        <%}%>
-      </div>
+<nav class="navbar navbar-expand-md bg-body-light sticky-top border-bottom">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="/listings">
+            <i class="fa-regular fa-compass"></i> Wonderlust
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup">
+
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+            <div class="navbar-nav">
+                <a class="nav-link explore" href="/listings">Explore</a>
+            </div>
+
+            <!-- Search -->
+            <form class="d-flex mx-auto navbar-search" role="search">
+                <input
+                    class="form-control"
+                    type="search"
+                    placeholder="Search destinations..."
+                    aria-label="Search"
+                >
+
+                <button class="btn search-btn" type="submit">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+
+            <div class="navbar-nav ms-auto">
+              <a class="nav-link" href="/listings/new">Airbnb your home</a>
+                <% if(!curruser) { %>
+                    <a class="nav-link" href="/signup"><b>Signup</b></a>
+                    <a class="nav-link" href="/login"><b>Login</b></a>
+                <% } %>
+
+                <% if(curruser) { %>
+                    <a class="nav-link" href="/logout"><b>Logout</b></a>
+                <% } %>
+
+            </div>
+
+        </div>
     </div>
-  </div>
 </nav>
+
+
+<!-- CATEGORY BAR - OUTSIDE NAVBAR -->
+
+<div class="category-section">
+
+    <!-- Left arrow -->
+    <button class="category-arrow">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <!-- Categories -->
+    <div class="categories">
+
+        <div class="category-item active">
+            <i class="fa-solid fa-fire"></i>
+            <span>Trending</span>
+        </div>
+
+        <div class="category-item">
+            <i class="fa-solid fa-bed"></i>
+            <span>Rooms</span>
+        </div>
+
+        <div class="category-item">
+            <i class="fa-solid fa-city"></i>
+            <span>Iconic Cities</span>
+        </div>
+
+        <div class="category-item">
+            <i class="fa-solid fa-mountain"></i>
+            <span>Mountains</span>
+        </div>
+
+        <div class="category-item">
+            <i class="fa-solid fa-chess-rook"></i>
+            <span>Castles</span>
+        </div>
+
+        <div class="category-item">
+            <i class="fa-solid fa-person-swimming"></i>
+            <span>Amazing Pools</span>
+        </div>
+
+        <div class="category-item">
+            <i class="fa-solid fa-tent"></i>
+            <span>Camping</span>
+        </div>
+
+        <div class="category-item">
+            <i class="fa-solid fa-tractor"></i>
+            <span>Farms</span>
+        </div>
+
+        <div class="category-item">
+            <i class="fa-solid fa-snowflake"></i>
+            <span>Arctic</span>
+        </div>
+
+    </div>
+
+    <!-- Right arrow -->
+    <button class="category-arrow">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+
+    <!-- Filter -->
+    <button class="filter-btn">
+        <i class="fa-solid fa-sliders"></i>
+        Filters
+    </button>
+
+</div>

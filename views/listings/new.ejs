@@ -11,7 +11,7 @@
                 </p>
             </div>
 
-            <form action="/listings" method="POST" class="needs-validation " novalidate>
+            <form action="/listings" method="POST" class="needs-validation " novalidate enctype="multipart/form-data">
 
                 <!-- Title -->
                 <div class="mb-3">
@@ -56,30 +56,13 @@
                     </label>
 
                     <input
-                        type="text"
+                        type="file"
+                        name="image"
+                        accept="image/*"
                         class="form-control"
-                        id="image[url]"
-                        name="image[url]"
-                        placeholder="https://example.com/image.jpg"
-                        
                     >
                 </div>
-
-                <!-- Image Filename -->
-                <div class="mb-3">
-                    <label for="image[filename]" class="form-label fw-semibold">
-                        Image Filename
-                    </label>
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="image[filename]"
-                        name="image[filename]"
-                        value="listingimage"
-                    >
-                </div>
-
+                
                 <!-- Price -->
                 <div class="mb-3">
                     <label for="price" class="form-label fw-semibold">

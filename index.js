@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 const express= require('express');
 const app = express();
 const mongoose= require('mongoose');
 const path = require('path');
-const MONGODB_URL = 'mongodb://127.0.0.1:27017/wanderlust';
+const db_url = process.env.MONGODB_URL;
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
@@ -10,6 +12,7 @@ const listingRoutes= require('./routes/listings.js');
 const reviewRoutes= require('./routes/reviews.js');
 const userRouters = require('./routes/users.js');
 const session = require('express-session');
+const MongoStore = require("connect-mongo").default;
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStartegy = require('passport-local');
@@ -23,8 +26,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.engine('ejs', ejsMate);
 
+
+const store = MongoStore.create({
+    mongoUrl: db_url,
+    crypto: {
+        secret: process.env.SECRET
+    },
+    touchAfter: 24 * 3600
+});
+
+store.on('error',(err)=>{
+    console.log('error on session store:',err);
+});
+
 const sessionOptions = {
-    secret: 'mysessioncode',
+    store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie :{
@@ -45,7 +62,7 @@ passport.deserializeUser(User.deserializeUser());
 
 //connection to db
 async function main() {
-    await mongoose.connect(MONGODB_URL);
+    await mongoose.connect(db_url);
 }
 main()
     .then(()=> console.log('connection successful'))
